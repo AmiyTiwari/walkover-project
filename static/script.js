@@ -9,13 +9,7 @@ setInterval(function() {
         id = document.getElementById("time");
         id.innerHTML = val;
     }
-    
-    if (val == 0) {
-        function next() {
-            document.getElementById("next").click();
-        }
-        
-        next();
+    if(val==0){
+        document.getElementById("next").click();
     }
-    
 },1000);
