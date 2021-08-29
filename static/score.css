@@ -9,14 +9,41 @@
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: 400;
   color: #666666;
   background: #eaeff4;
   line-height: 2em;
   /*height: 100%;*/
 }
-
+.score-text{
+    font-size:24px;
+    color:#1d3557;
+}
+.score-wrapper{
+    margin:0 auto;
+    width:100px;
+    height:100px;
+    padding:10px;
+    display:flex;
+    text-align:center;
+    justify-content:center;
+    align-items:center;
+    border-radius:50px;
+    color:white;
+}
+.score-1{
+    background:Green;
+}
+.score-2{
+    background:red;
+}
+.score{
+    font-weight:bold;
+    font-size:34px;
+    position:relative;
+    top:10%;
+}
 .wrapper {
   margin: 0 auto;
   width: 100%;
@@ -26,27 +53,34 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  border-radius:4px;
 }
 .rules{
   text-align: center;
+  letter-spacing:2px;
+  font-weight:400;
+  font-size:5em;
+  color:#1d3557;
 }
 .heading{
   font-family:'cooper Black';
-    border-style:solid;
+  border-style:solid;
   border-width:0 0 3px 0 ;
-
+  color:#1d3557;
   border-color:#1d3557f;
 }
 .container {
   position: relative;
   padding:0px;
-  width: 80%;
+  width: 50%;
   /*max-width: 600px;*/
-  height: 500px;
+  height: 400px;
   /* height: auto; */
   display: flex;
   background: #ffffff;
   box-shadow: 0 0 15px rgba(0, 0, 0, .1);
+  border-radius:15px;
+  color:black;
 }
 
 .credit {
@@ -78,31 +112,13 @@ h2 img {
 
 p {
   margin: 0 0 20px 0;
-  font-size: 16px;
+  font-size: 24px;
   font-weight: 500;
   line-height: 22px;
 }
 ol{
   text-align: left;
   justify-content: left;
-}
-.btn {
-  display: inline-block;
-  padding: 7px 20px;
-  font-size: 16px;
-  letter-spacing: 1px;
-  text-decoration: none;
-  border-radius: 5px;
-  color: #ffffff;
-  outline: none;
-  border: 1px solid #ffffff;
-  transition: .3s;
-  -webkit-transition: .3s;
-}
-
-.btn:hover {
-  color: #4CAF50;
-  background: #1d3557;
 }
 
 .col-left,
@@ -113,10 +129,12 @@ ol{
 }
 
 .col-left {
-  width: 55%;
-  background: #1d3557;
-  -webkit-clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);
-  clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);
+  width: 100%;
+  /*background: #1d3557;*/
+  color:black;
+  border-radius:10px;
+  /*-webkit-clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);
+  clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);*/
 }
 
 @media(max-width: 575.98px) {
