@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Admin Page</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="./static/question.css/">
+
+        <style>
+
+            table {
+                border: 4px solid fuchsia;
+                justify-content: center;
+            }
+            td,th {
+                padding-right: 40px;
+            }
+            th {
+                background-color: hotpink;
+            }
+            td {
+                border-top: 2px solid deeppink;
+            }
+            .container {
+                display: flex;
+                width: 20%;
+                justify-content: space-between;
+                margin: 0px;
+            }
+
+        </style>
+        
+        <script type="text/javascript">
+
+            function test()
+            {
+                document.getElementById("next").href="/admin-surprise?option="+1;
+            }
+            
+            function test_2()
+            {
+                
+                document.getElementById("next").href="/admin-surprise?option="+2;
+            }
+        </script>
+
+
+    </head>
+
+    <body>
+
+        <table>
+            <thead> LIST OF CANDIDATES </thead>
+
+            <tr>
+
+                <th> USERNAME </th>
+                <th> EMAIL </th>
+                <th> MARKS </th>
+                <th> DATE </th>
+
+            </tr>
+
+            {% for i in user %}
+
+            <tr>
+
+                <td> {{ i.username }} </td>
+                <td>  {{i.email_address}} </td>
+                <td> {{i.marks}} </td>
+                <td> {{i.date}} </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+        
+        <div class="container">
+        
+        {% if flag1 == 1 %} 
+        
+            <form method="post">
+                
+                <a href="/admin-surprise?option=2" id="next" class="submitBtn" type="button">Previous</a>
+                
+            </form>
+        
+        {% endif %}
+        
+        {% if flag == 1 %} 
+        
+            <form method="post">
+                
+                <a href="/admin-surprise?option=1" id="next" class="submitBtn" type="button">Next</a>
+                
+            </form>
+        
+        {% endif %}
+        
+        </div>
+        
+        
+
+    </body>
+</html>
