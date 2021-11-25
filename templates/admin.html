@@ -39,13 +39,13 @@
 
             function test()
             {
-                document.getElementById("next").href="/admin-surprise?option="+1;
+
+                document.getElementById("next").href="/admin-surprise?option=1&page=1";
             }
             
             function test_2()
             {
-                
-                document.getElementById("next").href="/admin-surprise?option="+2;
+                document.getElementById("next").href="/admin-surprise?option=2&page=1";
             }
         </script>
 
@@ -87,7 +87,7 @@
         
             <form method="post">
                 
-                <a href="/admin-surprise?option=2" id="next" class="submitBtn" type="button">Previous</a>
+                <a href="/admin-surprise?option=2&page={{page}}" id="next" class="submitBtn" type="button" onclick="test_2">Previous</a>
                 
             </form>
         
@@ -97,8 +97,7 @@
         
             <form method="post">
                 
-                <a href="/admin-surprise?option=1" id="next" class="submitBtn" type="button">Next</a>
-                
+                <a href="/admin-surprise?option=1&page={{page}}" id="next" class="submitBtn" type="button" onclick="test">Next</a>
             </form>
         
         {% endif %}

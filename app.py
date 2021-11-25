@@ -4,7 +4,7 @@ import random
 import datetime
 import os
 app= Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']=os.environ.get("DATABASE_URL")
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///working.db'
 app.config['SECRET_KEY']='1x25d1d63s4ddnant'
 db=SQLAlchemy(app)
 class User(db.Model):
@@ -125,13 +125,11 @@ def submit():
         return render_template("score.html",name=session["name"],total=session['marks'])
     except:
         return redirect('/',code=302)
-@app.route('/admin')
+@app.route('/admin',methods=["GET","POST"])
 def adminlog():
-    x = Admin_log.query.all()
     fl = 0
     if (request.cookies.get('ip') == "bar") :
         fl = 1
-    
     if fl:
         return redirect('/admin_check',code=302)
     return render_template("adminlogin.html")
@@ -139,45 +137,35 @@ def adminlog():
 def admincheck():
     user = request.form.get("username")
     pswd = request.form.get("pswd")
-    
     fl=0
-
     if (request.cookies.get('ip') == "bar") :
         fl = 1
     if (user == "walkover" and pswd == "walkover") or fl:
-        session["access"] = 1;
-        user = User.query.all()
-        user.sort(key=lambda x: x.date, reverse=True)
-        mn = []
-        for i in user:
-            d = {}
-            d['username'] = i.username
-            d['email_address'] = i.email_address
-            d['marks'] = i.marks
-            d['date'] = i.date
-            mn.append(d)
-        # print(len(mn),user)
-        session['user'] = mn
-        session['pages'] = 1
-        session['total'] = -(-len(mn) // 5)
-        if fl==0:
-            use_ip=Admin_log()
-            use_ip.ip=request.environ['REMOTE_ADDR']
-            db.session.add(use_ip)
-            db.session.commit()
+        session["access"] = 1
         res = make_response(redirect('/admin-surprise', code=302))
         res.set_cookie('ip', 'bar', expires=datetime.datetime.now() + datetime.timedelta(days=2))
         return res
-        #session['ip'].append(request.environ['REMOTE_ADDR'])
-        #print(session['ip'])
     return "<h1>Access Denied</h1>"
 
 @app.route('/admin-surprise',methods=["GET","POST"])
 def admin():
-    #print(request.environ['REMOTE_ADDR'], 'a')
-    mn = request.environ['REMOTE_ADDR']
-    #print(mn, session['ip'])
-    
+    user = User.query.all()
+    print(user)
+    user.sort(key=lambda x: x.date, reverse=True)
+    mn = []
+    for i in user:
+        d = {}
+        d['username'] = i.username
+        d['email_address'] = i.email_address
+        d['marks'] = i.marks
+        d['date'] = i.date
+        mn.append(d)
+    try:
+        session['page'] = int(request.args.get("page"))
+    except:
+        session["page"]=1
+        #print('one')
+    session['total'] = -(-len(mn) // 5)
     fl = 0
     if (request.cookies.get('ip') == "bar") :
         fl = 1
@@ -187,8 +175,7 @@ def admin():
         session['access']=0
     if session["access"] != 1:
         return "<h1>Access Denied</h1>"
-    user = session['user']
-    page = session['pages']
+    page = session['page']
     option = request.args.get("option")
     try:
         option = int(option)
@@ -196,9 +183,13 @@ def admin():
         option = 0
     if (option == 1):
         page += 1
+        if page==session['total']+1:
+            page=session['total']
     elif (option == 2):
         page -= 1
-    session['pages'] = page
+        if page==0:
+            page=1
+    session['page'] = page
     # print(page)
     flag = 1
     flag1 = 1
@@ -207,6 +198,6 @@ def admin():
     if (page == session['total']):
         flag = 0
     # print(user)
-    return render_template("admin.html", user=user[5 * (page - 1):5 * page], flag=flag, flag1=flag1, page=1)
+    return render_template("admin.html", user=mn[5 * (page - 1):5 * page], flag=flag, flag1=flag1, page=page)
 if __name__=="__main__":
-    app.run(debug=False)
+    app.run()
